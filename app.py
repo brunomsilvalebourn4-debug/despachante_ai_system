@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, session
 
 # ====================================
 # DATABASE
@@ -23,10 +23,18 @@ from modules.documentos.routes import documentos_bp
 # ====================================
 
 app = Flask(__name__)
-app.secret_key = 'nivaldo_secret'
+
+# 🔐 SECRET KEY SEGURA (Render + local)
+app.secret_key = os.environ.get("SECRET_KEY", "dev_secret_fraco")
+
+# 🍪 CONFIGURAÇÃO DE SESSÃO (IMPORTANTE NO RENDER)
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax"
+)
 
 # ====================================
-# CRIAR TABELAS (FORÇADO NO START)
+# CRIAR TABELAS (STARTUP)
 # ====================================
 
 def inicializar_banco():
@@ -36,7 +44,6 @@ def inicializar_banco():
     except Exception as e:
         print("❌ Erro ao criar tabelas:", e)
 
-# roda no startup
 with app.app_context():
     inicializar_banco()
 
@@ -60,11 +67,16 @@ def home():
     return redirect('/login')
 
 # ====================================
-# DASHBOARD
+# DASHBOARD (🔐 PROTEGIDO)
 # ====================================
 
 @app.route('/dashboard')
 def dashboard():
+
+    # 🔴 SE NÃO ESTIVER LOGADO, VOLTA PRO LOGIN
+    if 'usuario' not in session:
+        return redirect('/login')
+
     conn = get_connection()
 
     total_clientes = conn.execute("SELECT COUNT(*) FROM clientes").fetchone()[0]
@@ -83,7 +95,7 @@ def dashboard():
     )
 
 # ====================================
-# RUN (PRODUÇÃO + LOCAL)
+# RUN
 # ====================================
 
 if __name__ == '__main__':

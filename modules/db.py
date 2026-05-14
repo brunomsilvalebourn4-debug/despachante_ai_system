@@ -3,7 +3,7 @@ import sqlite3
 from config import Config
 
 # =========================================
-# CAMINHO SEGURO DO BANCO (RENDER + LOCAL)
+# CAMINHO DO BANCO
 # =========================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,8 +14,13 @@ DB_PATH = os.path.join(BASE_DIR, Config.DB_NAME)
 # =========================================
 
 def get_connection():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
+
+    # 🔥 IMPORTANTE PARA RENDER / PRODUÇÃO
+    conn.execute("PRAGMA journal_mode=WAL;")
+    conn.execute("PRAGMA synchronous=NORMAL;")
+
     return conn
 
 
@@ -29,7 +34,7 @@ def criar_tabelas():
     cursor = conn.cursor()
 
     # =========================================
-    # USERS (🔥 FALTAVA ESSA TABELA - ERRO DO LOGIN)
+    # USERS
     # =========================================
 
     cursor.execute("""
@@ -63,6 +68,7 @@ def criar_tabelas():
     )
     """)
 
+    # ALTERAÇÕES SEGURAS (SEM CRASH)
     colunas = [
         "endereco",
         "numero",
@@ -75,7 +81,7 @@ def criar_tabelas():
     for coluna in colunas:
         try:
             cursor.execute(f"ALTER TABLE clientes ADD COLUMN {coluna} TEXT")
-        except:
+        except sqlite3.OperationalError:
             pass
 
     # =========================================

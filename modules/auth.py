@@ -27,12 +27,19 @@ def login():
 
         conn.close()
 
-        if usuario is None:
+        # 🔴 usuário não existe
+        if not usuario:
             erro = "Usuário não encontrado"
 
-        elif not check_password_hash(usuario['senha_hash'], senha):
+        # 🔴 senha não existe no banco (proteção extra)
+        elif not usuario["senha_hash"]:
+            erro = "Erro no usuário (sem senha cadastrada)"
+
+        # 🔴 senha inválida
+        elif not check_password_hash(usuario["senha_hash"], senha):
             erro = "Senha incorreta"
 
+        # 🟢 login OK
         else:
             session.clear()
             session['usuario'] = usuario['nome']
@@ -42,7 +49,7 @@ def login():
 
 
 # ====================================
-# CRIAR ADMIN (FORÇADO / GARANTIA)
+# CRIAR ADMIN (AUTO GARANTIDO)
 # ====================================
 
 @auth.route('/register')
@@ -55,7 +62,7 @@ def register_user():
         ('admin@nivaldo.com',)
     ).fetchone()
 
-    if usuario is None:
+    if not usuario:
 
         senha_hash = generate_password_hash('123456')
 
@@ -73,8 +80,8 @@ def register_user():
     conn.close()
 
     return """
-    ✔ Usuário garantido no sistema!<br><br>
+    ✔ Usuário do sistema pronto!<br><br>
     Login: admin@nivaldo.com<br>
     Senha: 123456<br><br>
-    Agora tente acessar /login
+    Acesse /login agora
     """
