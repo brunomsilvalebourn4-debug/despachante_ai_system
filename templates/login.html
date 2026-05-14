@@ -23,23 +23,24 @@
             Nivaldo Despachante
         </div>
 
-        <form method="POST">
+        <!-- ✔ CORRIGIDO: action adicionada -->
+        <form method="POST" action="/login">
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email">
+                <input type="email" name="email" required>
             </div>
 
             <br>
 
             <div class="form-group">
                 <label>Senha</label>
-                <input type="password" name="senha">
+                <input type="password" name="senha" required>
             </div>
 
             <br>
 
-            <button class="btn btn-primary" style="width:100%;">
+            <button class="btn btn-primary" style="width:100%;" type="submit">
                 Entrar
             </button>
 

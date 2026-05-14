@@ -50,10 +50,11 @@ app.register_blueprint(documentos_bp)
 # HOME
 # ====================================
 
+from flask import redirect
+
 @app.route('/')
 def home():
-    return render_template('login.html')
-
+    return redirect('/login')
 
 # ====================================
 # DASHBOARD
