@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="flex items-center justify-between mb-8">
+
+    <div>
+
+        <h1 class="text-3xl font-bold text-slate-800">
+            Ordem de Serviço
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Gerencie os processos do despachante.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- FORM -->
+<div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 mb-8">
+
+    <form method="POST">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+
+            <!-- CLIENTE -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Cliente
+                </label>
+
+                <select id="clienteSelect"
+                name="cliente_id"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    {% for cliente in clientes %}
+
+                    <option
+                        value="{{ cliente.id }}"
+                        data-tipo="{{ cliente.tipo_pessoa }}">
+
+                        {{ cliente.nome }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- VEÍCULO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Veículo
+                </label>
+
+                <select
+                name="veiculo_id"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    {% for veiculo in veiculos %}
+
+                    <option value="{{ veiculo.id }}">
+                        {{ veiculo.placa }} - {{ veiculo.marca_modelo }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- SERVIÇO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Tipo Serviço
+                </label>
+
+                <select
+                name="tipo_servico"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option>Transferência</option>
+                    <option>Licenciamento</option>
+                    <option>Primeiro Emplacamento</option>
+                    <option>2ª Via Documento</option>
+
+                </select>
+
+            </div>
+
+            <!-- PROCURAÇÃO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Assinado por Procuração?
+                </label>
+
+                <select
+                id="procuracao"
+                name="procuracao"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+                    <option value="nao">Não</option>
+                    <option value="sim">Sim</option>
+
+                </select>
+
+            </div>
+
+            <!-- VALOR -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Valor Venda
+                </label>
+
+                <input type="text" name="valor_venda" required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- NOTA -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Nota Fiscal
+                </label>
+
+                <input type="text" name="nota_fiscal" required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- STATUS -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Status
+                </label>
+
+                <select name="status" required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+                    <option>Pendente</option>
+                    <option>Em andamento</option>
+                    <option>Finalizado</option>
+
+                </select>
+
+            </div>
+
+            <!-- MOTIVO -->
+            <div class="xl:col-span-4">
+
+                <label class="block text-sm font-semibold mb-2">
+                    Motivo Pendência
+                </label>
+
+                <textarea name="motivo_pendencia" rows="3"
+                class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50"></textarea>
+
+            </div>
+
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="mt-10">
+
+            <h2 class="text-xl font-bold text-slate-800 mb-5">
+                Checklist Obrigatório
+            </h2>
+
+            <div id="checklist" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+        </div>
+
+        <!-- BOTÃO -->
+        <div class="flex justify-end mt-8">
+
+            <button type="submit"
+            class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-7 py-3 rounded-xl shadow-lg">
+
+                Salvar Processo
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+
+const clienteSelect = document.getElementById('clienteSelect');
+const checklist = document.getElementById('checklist');
+const procuracao = document.getElementById('procuracao');
+
+function renderChecklist() {
+
+    if (!clienteSelect.value) {
+        checklist.innerHTML = '';
+        return;
+    }
+
+    const tipo = clienteSelect.options[clienteSelect.selectedIndex].dataset.tipo;
+
+    let html = '';
+
+    if (tipo === 'CPF') {
+
+        html += `
+        <label>
+            <input type="checkbox" name="cnh_proprietario" value="1">
+            CNH Proprietário
+        </label>
+
+        <label>
+            <input type="checkbox" name="comprovante_endereco" value="1">
+            Comprovante Endereço
+        </label>
+
+        <label>
+            <input type="checkbox" name="vistoria" value="1">
+            Vistoria
+        </label>
+
+        <label>
+            <input type="checkbox" name="recibo_venda" value="1">
+            Recibo Venda
+        </label>
+        `;
+
+    } else {
+
+        html += `
+        <label>
+            <input type="checkbox" name="cnh_socio" value="1">
+            CNH Sócio
+        </label>
+
+        <label>
+            <input type="checkbox" name="contrato_social" value="1">
+            Contrato Social
+        </label>
+
+        <label>
+            <input type="checkbox" name="vistoria" value="1">
+            Vistoria
+        </label>
+
+        <label>
+            <input type="checkbox" name="recibo_venda" value="1">
+            Recibo Venda
+        </label>
+        `;
+
+    }
+
+    if (procuracao.value === 'sim') {
+
+        html += `
+        <label>
+            <input type="checkbox" name="procuracao_doc" value="1">
+            Procuração
+        </label>
+        `;
+
+    }
+
+    checklist.innerHTML = html;
+}
+
+clienteSelect.addEventListener('change', renderChecklist);
+procuracao.addEventListener('change', renderChecklist);
+
+renderChecklist();
+
+</script>
+
+{% endblock %}

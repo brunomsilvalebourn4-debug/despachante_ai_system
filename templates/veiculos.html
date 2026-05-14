@@ -1,0 +1,1639 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+
+    <!-- HEADER -->
+    <div class="bg-gradient-to-r from-blue-700 to-violet-700 px-8 py-6 text-white">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <h1 class="text-3xl font-bold">
+                    Cadastro Veicular
+                </h1>
+
+                <p class="opacity-90 mt-1">
+                    Gestão completa do proprietário e veículo.
+                </p>
+
+            </div>
+
+            <button
+            type="submit"
+            form="formVeiculo"
+            class="bg-white text-blue-700 px-6 py-3 rounded-2xl font-bold shadow-lg hover:scale-105 transition-all">
+
+                Salvar Cadastro
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TABS -->
+    <div class="border-b border-slate-200 bg-slate-50">
+
+        <div class="flex overflow-x-auto">
+
+            <button onclick="abrirTab('proprietario', event)"
+class="tab-btn px-8 py-5 border-b-4 border-blue-600 text-blue-700 font-bold">
+
+    Proprietário
+
+</button>
+
+<button onclick="abrirTab('veiculo', event)"
+class="tab-btn px-8 py-5 text-slate-600 font-semibold">
+
+    Veículo
+
+</button>
+
+<button onclick="abrirTab('servicos', event)"
+class="tab-btn px-8 py-5 text-slate-600 font-semibold">
+
+    Serviços
+
+</button>
+
+        </div>
+
+    </div>
+
+    <form id="formVeiculo" method="POST">
+
+        <div class="p-8">
+
+            <!-- ================================================= -->
+            <!-- PROPRIETÁRIO -->
+            <!-- ================================================= -->
+
+            <div id="proprietario" class="tab-content">
+
+                <h2 class="text-2xl font-bold mb-8 text-slate-800">
+                    Dados do Proprietário
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                    <!-- NOME CLIENTE -->
+<div class="xl:col-span-2">
+
+    <label class="block text-sm font-bold mb-2">
+        Nome do Cliente
+    </label>
+
+    <input
+    type="text"
+    name="nome_cliente"
+    id="nomeCliente"
+    list="listaClientes"
+    autocomplete="off"
+    required
+    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+    <datalist id="listaClientes">
+
+        {% for cliente in clientes %}
+
+            <option
+                value="{{ cliente.nome }}"
+                data-cpf="{{ cliente.cpf }}"
+                data-rg="{{ cliente.rg }}"
+                data-telefone="{{ cliente.telefone }}"
+                data-email="{{ cliente.email }}"
+                data-endereco="{{ cliente.endereco }}"
+                data-numero="{{ cliente.numero }}"
+                data-bairro="{{ cliente.bairro }}"
+                data-cidade="{{ cliente.cidade }}"
+                data-estado="{{ cliente.estado }}"
+                data-cep="{{ cliente.cep }}"
+                data-data-nascimento="{{ cliente.data_nascimento }}"
+                data-vencimento-cnh="{{ cliente.vencimento_cnh }}"
+                data-org-exp="{{ cliente.org_exp }}"
+                data-uf-exp="{{ cliente.uf_exp }}"
+                data-pgu="{{ cliente.pgu_registro }}"
+                data-nome-pai="{{ cliente.nome_pai }}"
+                data-nome-mae="{{ cliente.nome_mae }}">
+
+        {% endfor %}
+
+    </datalist>
+
+</div>
+                    <!-- GRUPO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Grupo
+                        </label>
+
+                        <select
+                        name="grupo"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                            <option value="Particular">
+                                Particular
+                            </option>
+
+                            <option value="Empresa">
+                                Empresa
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- CPF -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            CPF / CNPJ
+                        </label>
+
+                        <input
+                        type="text"
+                        name="cpf_cnpj"
+                        id="cpfCnpj"
+                        maxlength="18"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- PLACA -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Placa
+                        </label>
+
+                        <input
+                        type="text"
+                        name="placa"
+                        class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- RENAVAM -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Renavam
+                        </label>
+
+                        <input
+                        type="text"
+                        name="renavam"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- CHASSI -->
+                    <div class="xl:col-span-2">
+
+                        <label class="block text-sm font-bold mb-2">
+                            Chassi
+                        </label>
+
+                        <input
+                        type="text"
+                        name="chassi"
+                        class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- CONTATO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Contato
+                        </label>
+
+                        <input
+                        type="text"
+                        name="contato"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- TELEFONE -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Telefone
+                        </label>
+
+                        <input
+                        type="text"
+                        name="telefone"
+                        id="telefone"
+                        maxlength="15"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="xl:col-span-2">
+
+                        <label class="block text-sm font-bold mb-2">
+                            E-mail
+                        </label>
+
+                        <input
+                        type="email"
+                        name="email"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- NASCIMENTO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Data de Nascimento
+                        </label>
+
+                        <input
+                        type="text"
+                        name="data_nascimento"
+                        id="dataNascimento"
+                        maxlength="10"
+                        placeholder="00/00/0000"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- CNH -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Vencimento CNH
+                        </label>
+
+                        <input
+                        type="text"
+                        name="vencimento_cnh"
+                        id="vencimentoCnh"
+                        maxlength="10"
+                        placeholder="00/00/0000"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- RG -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            RG
+                        </label>
+
+                        <input
+                        type="text"
+                        name="rg"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- ORG EXP -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            ORG.EXP
+                        </label>
+
+                        <input
+                        type="text"
+                        name="org_exp"
+                        class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- UF EXP -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            UF Expedição
+                        </label>
+
+                        <input
+                        type="text"
+                        name="uf_exp"
+                        maxlength="2"
+                        class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- PGU -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            PGU / Registro
+                        </label>
+
+                        <input
+                        type="text"
+                        name="pgu_registro"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- ENDEREÇO -->
+                    <div class="xl:col-span-2">
+
+                        <label class="block text-sm font-bold mb-2">
+                            Endereço
+                        </label>
+
+                        <input
+                        type="text"
+                        name="endereco"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- NUMERO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Número
+                        </label>
+
+                        <input
+                        type="text"
+                        name="numero"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- COMPLEMENTO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Complemento
+                        </label>
+
+                        <input
+                        type="text"
+                        name="complemento"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- BAIRRO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Bairro
+                        </label>
+
+                        <input
+                        type="text"
+                        name="bairro"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- MUNICIPIO -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            Município
+                        </label>
+
+                        <input
+                        type="text"
+                        name="municipio"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- UF -->
+                    <div>
+
+                        <label class="block text-sm font-bold mb-2">
+                            UF
+                        </label>
+
+                        <input
+                        type="text"
+                        name="uf"
+                        maxlength="2"
+                        class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- PAI -->
+                    <div class="xl:col-span-2">
+
+                        <label class="block text-sm font-bold mb-2">
+                            Nome do Pai
+                        </label>
+
+                        <input
+                        type="text"
+                        name="nome_pai"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                    <!-- MAE -->
+                    <div class="xl:col-span-2">
+
+                        <label class="block text-sm font-bold mb-2">
+                            Nome da Mãe
+                        </label>
+
+                        <input
+                        type="text"
+                        name="nome_mae"
+                        class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                    </div>
+
+                </div>
+
+                <!-- ================================================= -->
+                <!-- CHAVE NOTA -->
+                <!-- ================================================= -->
+
+                <div class="mt-12">
+
+                    <h2 class="text-2xl font-bold mb-6 text-slate-800">
+                        Chave Nota Fiscal
+                    </h2>
+
+                    <input
+                    type="text"
+                    name="chave_nota_fiscal"
+                    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                </div>
+
+                <!-- ================================================= -->
+                <!-- IPVA ZERO KM -->
+                <!-- ================================================= -->
+
+                <div class="mt-12">
+
+                    <h2 class="text-2xl font-bold mb-6 text-slate-800">
+                        IPVA ZERO KM
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+                        <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+
+                            <input type="checkbox" name="ipva_zero_km">
+
+                            PCD
+
+                        </label>
+
+                        <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+
+                            <input type="checkbox" name="pcd_venda_direta">
+
+                            PCD e Venda Direta
+
+                        </label>
+
+                        <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+
+                            <input type="checkbox" name="taxi">
+
+                            Táxi
+
+                        </label>
+
+                        <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+
+                            <input type="checkbox" name="renave">
+
+                            Venda Dispensada de Renave
+
+                        </label>
+
+                        <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-slate-50">
+
+                            <input type="checkbox" name="isencao_fiscal">
+
+                            Isenção Fiscal
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <!-- ================================================= -->
+                <!-- PROPRIETÁRIO ANTERIOR -->
+                <!-- ================================================= -->
+
+                <div class="mt-12">
+
+                    <h2 class="text-2xl font-bold mb-8 text-slate-800">
+                        Proprietário Anterior
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+                        <div>
+
+                            <label class="block text-sm font-bold mb-2">
+                                CPF/CNPJ Proprietário Anterior
+                            </label>
+
+                            <input
+                            type="text"
+                            name="cpf_cnpj_antigo"
+                            id="cpfAntigo"
+                            maxlength="18"
+                            class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                        </div>
+
+                        <div class="xl:col-span-2">
+
+                            <label class="block text-sm font-bold mb-2">
+                                Nome Proprietário Anterior
+                            </label>
+
+                            <input
+                            type="text"
+                            name="nome_proprietario_antigo"
+                            class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-bold mb-2">
+                                Placa Antiga
+                            </label>
+
+                            <input
+                            type="text"
+                            name="placa_antiga"
+                            class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-bold mb-2">
+                                Município Antigo
+                            </label>
+
+                            <input
+                            type="text"
+                            name="municipio_antigo"
+                            class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-bold mb-2">
+                                UF Antigo
+                            </label>
+
+                            <input
+                            type="text"
+                            name="uf_antigo"
+                            maxlength="2"
+                            class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-50">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="veiculo" class="tab-content hidden">
+
+    <h2 class="text-2xl font-bold mb-8 text-slate-800">
+        Dados do Veículo
+    </h2>
+
+     <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 mb-8">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Informações Básicas e Técnicas
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- MARCA -->
+            <div class="xl:col-span-2">
+
+                <label class="block text-sm font-bold mb-2">
+                    Marca / Modelo
+                </label>
+
+                <input
+                type="text"
+                name="marca_modelo"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- COR -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Cor
+                </label>
+
+                <input
+                type="text"
+                name="cor"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- HODOMETRO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Hodômetro
+                </label>
+
+                <input
+                type="number"
+                name="hodometro"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- TIPO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Tipo
+                </label>
+
+                <select
+                name="tipo"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                    <option>Automóvel</option>
+                    <option>Caminhão</option>
+                    <option>Caminhonete</option>
+                    <option>Motoneta</option>
+                    <option>Motocicleta</option>
+                    <option>Caminhão-trator</option>
+                    <option>Reboque</option>
+                    <option>Semi-reboque</option>
+
+                </select>
+
+            </div>
+
+            <!-- ESPECIE -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Espécie
+                </label>
+
+                <select
+                name="especie"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                    <option>Passageiro</option>
+                    <option>Misto</option>
+                    <option>Carga</option>
+                    <option>Utilitário</option>
+                    <option>Coleção</option>
+
+                </select>
+
+            </div>
+
+            <!-- COMBUSTIVEL -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Combustível
+                </label>
+
+                <select
+                name="combustivel"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                    <option>Álcool/Gasolina</option>
+                    <option>Gasolina</option>
+                    <option>Álcool</option>
+                    <option>Elétrico</option>
+                    <option>Gasolina/Gás</option>
+                    <option>Álcool/Gás</option>
+                    <option>Diesel</option>
+
+                </select>
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Categoria
+                </label>
+
+                <select
+                name="categoria"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                    <option>Particular</option>
+                    <option>Aluguel</option>
+                    <option>Aprendizagem</option>
+                    <option>Oficial</option>
+
+                </select>
+
+            </div>
+
+            <!-- MOTOR -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Número do Motor
+                </label>
+
+                <input
+                type="text"
+                name="numero_motor"
+                class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+        </div>
+
+        <!-- CHECKBOX -->
+        <div class="mt-6">
+
+            <label class="flex items-center gap-4 p-5 rounded-2xl border border-slate-200 bg-white">
+
+                <input
+                type="checkbox"
+                name="chassi_remarcado">
+
+                Chassi Remarcado
+
+            </label>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- DOCUMENTAÇÃO -->
+    <!-- ============================================= -->
+
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 mb-8">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Documentação e Gravame
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- CRV -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Nº CRV / Espelho DUT
+                </label>
+
+                <input
+                type="text"
+                name="numero_crv"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- DATA DUT -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Data Espelho DUT
+                </label>
+
+                <input
+                type="date"
+                name="data_espelho_dut"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- DUAL -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Espelho Dual
+                </label>
+
+                <input
+                type="text"
+                name="espelho_dual"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- DATA DUAL -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Data Espelho Dual
+                </label>
+
+                <input
+                type="date"
+                name="data_espelho_dual"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- RESTRICAO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Restrição 1
+                </label>
+
+                <input
+                type="text"
+                name="restricao_1"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- FINANCEIRA -->
+            <div class="xl:col-span-2">
+
+                <label class="block text-sm font-bold mb-2">
+                    Financeira / Arrendatário
+                </label>
+
+                <input
+                type="text"
+                name="financeira_arrendatario"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- COMPRA -->
+    <!-- ============================================= -->
+
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 mb-8">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Dados de Compra e Processo
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- DATA COMPRA -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Data da Compra
+                </label>
+
+                <input
+                type="date"
+                name="data_compra"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- VALOR -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Valor da Compra
+                </label>
+
+                <input
+                type="text"
+                name="valor_compra"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- NF -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Número Nota Fiscal
+                </label>
+
+                <input
+                type="text"
+                name="numero_nota_fiscal"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- DATA PROCESSO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Data Início Processo
+                </label>
+
+                <input
+                type="date"
+                name="data_inicio_processo"
+                value="{{ data_atual }}"
+                readonly
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-100">
+
+            </div>
+
+            <!-- NUMERO PROCESSO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Número Processo
+                </label>
+
+                <input
+                type="text"
+                name="numero_processo"
+                value="{{ numero_processo }}"
+                readonly
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-100">
+
+            </div>
+
+            <!-- FICHA -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Ficha Controle
+                </label>
+
+                <input
+                type="text"
+                name="ficha_controle"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- CARGA -->
+    <!-- ============================================= -->
+
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 mb-8">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Especificações de Carga
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- CARGA -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Capacidade Carga (Ton)
+                </label>
+
+                <input
+                type="text"
+                name="capacidade_carga"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- CMT -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    CMT
+                </label>
+
+                <input
+                type="text"
+                name="cmt"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- PBT -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    PBT
+                </label>
+
+                <input
+                type="text"
+                name="pbt"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- EIXOS -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Nº Eixos
+                </label>
+
+                <select
+                name="numero_eixos"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- ANTT -->
+    <!-- ============================================= -->
+
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 mb-8">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Dados ANTT e Tacógrafo
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- RNTRC -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    RNTRC
+                </label>
+
+                <input
+                type="text"
+                name="rntrc"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Categoria
+                </label>
+
+                <input
+                type="text"
+                name="categoria_antt"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- VENCIMENTO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Vencimento RNTRC
+                </label>
+
+                <input
+                type="date"
+                name="vencimento_rntrc"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+            <!-- SELO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Vencimento Selo
+                </label>
+
+                <input
+                type="date"
+                name="vencimento_selo"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- FINALIZAÇÃO -->
+    <!-- ============================================= -->
+
+    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+
+        <h3 class="text-xl font-bold text-slate-800 mb-6">
+            Finalização e Observações
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            <!-- RESPONSAVEL -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Responsável
+                </label>
+
+                <input
+                type="text"
+                name="responsavel"
+                value="{{ responsavel }}"
+                readonly
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-slate-100">
+
+            </div>
+
+            <!-- EXERCICIO -->
+            <div>
+
+                <label class="block text-sm font-bold mb-2">
+                    Exercício
+                </label>
+
+                <input
+                type="number"
+                name="exercicio"
+                value="{{ ano_atual }}"
+                class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+            </div>
+
+        </div>
+
+        <!-- OBS -->
+        <div class="mt-6">
+
+            <label class="block text-sm font-bold mb-2">
+                Observações
+            </label>
+
+            <textarea
+            name="observacoes"
+            rows="6"
+            class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white resize-none"></textarea>
+
+        </div>
+
+    </div>
+
+    </form>
+
+</div>
+
+<!-- ================================================= -->
+<!-- SERVIÇOS -->
+<!-- ================================================= -->
+
+<div id="servicos" class="tab-content hidden">
+
+    <h2 class="text-2xl font-bold mb-8 text-slate-800">
+        Serviços do Processo
+    </h2>
+
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
+        <!-- ========================================= -->
+        <!-- SERVIÇOS -->
+        <!-- ========================================= -->
+
+        <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+
+            <h3 class="text-xl font-bold text-slate-800 mb-6">
+                Tipo de Serviço
+            </h3>
+
+            <div class="space-y-5">
+
+                <!-- SERVIÇO -->
+                <div>
+
+                    <label class="block text-sm font-bold mb-2">
+                        Serviço
+                    </label>
+
+                    <select
+                    name="tipo_servico"
+                    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                        <option value="">
+                            Selecione um serviço
+                        </option>
+
+                        <option value="transferencia">
+                            Transferência
+                        </option>
+
+                        <option value="licenciamento">
+                            Licenciamento
+                        </option>
+
+                        <option value="emissao_atpv">
+                            Emissão ATPV-e
+                        </option>
+
+                        <option value="emissao_crlv">
+                            Emissão CRLV
+                        </option>
+
+                        <option value="segunda_via">
+                            2ª Via
+                        </option>
+
+                        <option value="primeiro_emplacamento">
+                            Primeiro Emplacamento
+                        </option>
+
+                        <option value="recurso">
+                            Recurso
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- STATUS -->
+                <div>
+
+                    <label class="block text-sm font-bold mb-2">
+                        Status
+                    </label>
+
+                    <select
+                    name="status_processo"
+                    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                        <option>Pendente</option>
+                        <option>Em andamento</option>
+                        <option>Finalizado</option>
+
+                    </select>
+
+                </div>
+
+                <!-- OBS -->
+                <div>
+
+                    <label class="block text-sm font-bold mb-2">
+                        Observações do Serviço
+                    </label>
+
+                    <textarea
+                    name="obs_servico"
+                    rows="5"
+                    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white resize-none"></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================= -->
+        <!-- CONSULTA FUTURA API -->
+        <!-- ========================================= -->
+
+        <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+
+            <h3 class="text-xl font-bold text-slate-800 mb-6">
+                Consulta de Débitos / Taxas
+            </h3>
+
+            <div class="space-y-5">
+
+                <div>
+
+                    <label class="block text-sm font-bold mb-2">
+                        Placa
+                    </label>
+
+                    <input
+                    type="text"
+                    name="consulta_placa"
+                    class="uppercase w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                </div>
+
+                <div>
+
+                    <label class="block text-sm font-bold mb-2">
+                        Renavam
+                    </label>
+
+                    <input
+                    type="text"
+                    name="consulta_renavam"
+                    class="w-full px-4 py-3 rounded-2xl border border-slate-300 bg-white">
+
+                </div>
+
+                <div class="pt-3">
+
+                    <button
+                    type="button"
+                    class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg hover:scale-105 transition-all">
+
+                        Consultar Débitos
+
+                    </button>
+
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+
+                    <p class="text-sm text-blue-700">
+
+                        Futuramente esta área será integrada
+                        com API do DETRAN para consultas automáticas
+                        de taxas, multas e pendências.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+<script>
+
+function abrirTab(tabId, event) {
+
+    const tabs =
+        document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+
+        tab.classList.add('hidden');
+
+    });
+
+    document
+        .getElementById(tabId)
+        .classList.remove('hidden');
+
+    const botoes =
+        document.querySelectorAll('.tab-btn');
+
+    botoes.forEach(btn => {
+
+        btn.classList.remove(
+            'border-blue-600',
+            'text-blue-700'
+        );
+
+        btn.classList.add(
+            'text-slate-600'
+        );
+
+    });
+
+    event.target.classList.add(
+        'border-blue-600',
+        'text-blue-700'
+    );
+
+}
+
+/* ===================================== */
+/* MASCARA CPF/CNPJ */
+/* ===================================== */
+
+function mascaraCpfCnpj(valor) {
+
+    valor = valor.replace(/\D/g, '');
+
+    if (valor.length <= 11) {
+
+        valor = valor.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+        );
+
+        valor = valor.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+        );
+
+        valor = valor.replace(
+            /(\d{3})(\d{1,2})$/,
+            '$1-$2'
+        );
+
+    } else {
+
+        valor = valor.replace(
+            /^(\d{2})(\d)/,
+            '$1.$2'
+        );
+
+        valor = valor.replace(
+            /^(\d{2})\.(\d{3})(\d)/,
+            '$1.$2.$3'
+        );
+
+        valor = valor.replace(
+            /\.(\d{3})(\d)/,
+            '.$1/$2'
+        );
+
+        valor = valor.replace(
+            /(\d{4})(\d)/,
+            '$1-$2'
+        );
+
+    }
+
+    return valor;
+
+}
+
+document
+.getElementById('cpfCnpj')
+.addEventListener('input', function(e) {
+
+    e.target.value =
+        mascaraCpfCnpj(e.target.value);
+
+});
+
+document
+.getElementById('cpfAntigo')
+.addEventListener('input', function(e) {
+
+    e.target.value =
+        mascaraCpfCnpj(e.target.value);
+
+});
+
+/* ===================================== */
+/* TELEFONE */
+/* ===================================== */
+
+document
+.getElementById('telefone')
+.addEventListener('input', function(e) {
+
+    let valor =
+        e.target.value.replace(/\D/g, '');
+
+    valor = valor.replace(
+        /^(\d{2})(\d)/g,
+        '($1) $2'
+    );
+
+    valor = valor.replace(
+        /(\d)(\d{4})$/,
+        '$1-$2'
+    );
+
+    e.target.value = valor;
+
+});
+
+/* ===================================== */
+/* DATAS */
+/* ===================================== */
+
+function mascaraData(input) {
+
+    input.addEventListener('input', function(e) {
+
+        let valor = e.target.value.replace(/\D/g, '');
+
+        if (valor.length > 2) {
+            valor = valor.substring(0,2) + '/' + valor.substring(2);
+        }
+
+        if (valor.length > 5) {
+            valor = valor.substring(0,5) + '/' + valor.substring(5,9);
+        }
+
+        e.target.value = valor;
+
+    });
+
+}
+
+mascaraData(
+    document.getElementById('dataNascimento')
+);
+
+mascaraData(
+    document.getElementById('vencimentoCnh')
+);
+
+/* ===================================== */
+/* PUXAR DADOS DO CLIENTE */
+/* ===================================== */
+
+document
+.getElementById('nomeCliente')
+.addEventListener('change', function() {
+
+    const nomeSelecionado = this.value;
+
+    const opcoes =
+        document.querySelectorAll('#listaClientes option');
+
+    opcoes.forEach(function(opcao) {
+
+        if (opcao.value === nomeSelecionado) {
+
+            document.querySelector('[name="cpf_cnpj"]').value =
+                opcao.dataset.cpf || '';
+
+            document.querySelector('[name="rg"]').value =
+                opcao.dataset.rg || '';
+
+            document.querySelector('[name="telefone"]').value =
+                opcao.dataset.telefone || '';
+
+            document.querySelector('[name="email"]').value =
+                opcao.dataset.email || '';
+
+            document.querySelector('[name="endereco"]').value =
+                opcao.dataset.endereco || '';
+
+            document.querySelector('[name="numero"]').value =
+                opcao.dataset.numero || '';
+
+            document.querySelector('[name="bairro"]').value =
+                opcao.dataset.bairro || '';
+
+            document.querySelector('[name="municipio"]').value =
+                opcao.dataset.cidade || '';
+
+            document.querySelector('[name="uf"]').value =
+                opcao.dataset.estado || '';
+
+            document.querySelector('[name="data_nascimento"]').value =
+                opcao.dataset.dataNascimento || '';
+
+            document.querySelector('[name="vencimento_cnh"]').value =
+                opcao.dataset.vencimentoCnh || '';
+
+            document.querySelector('[name="org_exp"]').value =
+                opcao.dataset.orgExp || '';
+
+            document.querySelector('[name="uf_exp"]').value =
+                opcao.dataset.ufExp || '';
+
+            document.querySelector('[name="pgu_registro"]').value =
+                opcao.dataset.pgu || '';
+
+            document.querySelector('[name="nome_pai"]').value =
+                opcao.dataset.nomePai || '';
+
+            document.querySelector('[name="nome_mae"]').value =
+                opcao.dataset.nomeMae || '';
+
+        }
+
+    });
+
+});
+
+mascaraData(
+    document.getElementById('vencimentoCnh')
+);
+
+</script>
+
+{% endblock %}

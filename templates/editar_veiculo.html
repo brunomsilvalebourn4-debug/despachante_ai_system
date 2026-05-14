@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto">
+
+    <div class="bg-white rounded-3xl shadow-xl p-8">
+
+        <h1 class="text-3xl font-bold mb-8">
+            Editar Veículo
+        </h1>
+
+        <form method="POST">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Placa
+                    </label>
+
+                    <input
+                    type="text"
+                    name="placa"
+                    required
+                    value="{{ veiculo.placa }}"
+                    class="w-full border rounded-2xl px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Código/FIPE
+                    </label>
+
+                    <input
+                    type="text"
+                    name="codigo_fipe"
+                    value="{{ veiculo.codigo_fipe }}"
+                    class="w-full border rounded-2xl px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Marca/Modelo
+                    </label>
+
+                    <input
+                    type="text"
+                    name="marca_modelo"
+                    required
+                    value="{{ veiculo.marca_modelo }}"
+                    class="w-full border rounded-2xl px-4 py-3">
+
+                </div>
+
+            </div>
+
+            <div class="flex justify-end mt-8">
+
+                <button
+                class="bg-blue-600 text-white px-8 py-3 rounded-2xl">
+
+                    Salvar Alterações
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

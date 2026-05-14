@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="flex items-center justify-between mb-10">
+
+    <div>
+
+        <h1 class="text-3xl font-bold text-slate-800">
+            Dashboard
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Bem-vindo ao sistema inteligente da Nivaldo Despachante.
+        </p>
+
+    </div>
+
+    <!-- BOTÃO -->
+    <a href="/processos"
+    class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all font-semibold inline-flex items-center">
+
+        <i class="fas fa-plus mr-2"></i>
+        Novo Processo
+
+    </a>
+
+</div>
+
+<!-- CARDS -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+
+    <!-- CLIENTES -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-slate-500 text-sm font-medium">
+                    Clientes
+                </p>
+
+                <h2 class="text-3xl font-bold text-slate-800 mt-2">
+                    {{ total_clientes }}
+                </h2>
+
+            </div>
+
+            <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center">
+
+                <i class="fas fa-users text-blue-600 text-2xl"></i>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5 text-sm text-emerald-600 font-semibold">
+
+            Sistema atualizado
+
+        </div>
+
+    </div>
+
+    <!-- VEÍCULOS -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-slate-500 text-sm font-medium">
+                    Veículos
+                </p>
+
+                <h2 class="text-3xl font-bold text-slate-800 mt-2">
+                    {{ total_veiculos }}
+                </h2>
+
+            </div>
+
+            <div class="w-14 h-14 rounded-2xl bg-violet-100 flex items-center justify-center">
+
+                <i class="fas fa-car text-violet-600 text-2xl"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PROCESSOS -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-slate-500 text-sm font-medium">
+                    Processos
+                </p>
+
+                <h2 class="text-3xl font-bold text-slate-800 mt-2">
+                    {{ total_processos }}
+                </h2>
+
+            </div>
+
+            <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center">
+
+                <i class="fas fa-file-invoice text-orange-600 text-2xl"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- IA -->
+    <div class="bg-gradient-to-r from-blue-600 to-violet-600 rounded-2xl shadow-xl p-6 text-white">
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <p class="text-sm opacity-80">
+                    IA Assistente
+                </p>
+
+                <h2 class="text-2xl font-bold mt-2">
+                    Online
+                </h2>
+
+            </div>
+
+            <div class="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+
+                <i class="fas fa-robot text-2xl"></i>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4 text-sm opacity-90">
+
+            Inteligência ativa e integrada ao sistema.
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

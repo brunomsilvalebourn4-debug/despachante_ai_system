@@ -1,0 +1,440 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="flex items-center justify-between mb-8">
+
+    <div>
+
+        <h1 class="text-3xl font-bold text-slate-800">
+            Clientes
+        </h1>
+
+        <p class="text-slate-500 mt-1">
+            Gerencie os clientes cadastrados.
+        </p>
+
+    </div>
+
+    <!-- BOTÃO -->
+    <button type="button"
+    onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-5 py-3 rounded-xl shadow-lg hover:scale-105 transition-all font-semibold">
+
+        <i class="fas fa-plus mr-2"></i>
+        Novo Cliente
+
+    </button>
+
+</div>
+
+<!-- FORM -->
+<div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 mb-8">
+
+    <form method="POST" action="/clientes">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+
+            <!-- NOME -->
+            <div class="xl:col-span-2">
+
+                <label class="block text-sm font-semibold mb-2">
+                    Nome Completo
+                </label>
+
+                <input
+                type="text"
+                name="nome"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- CPF -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    CPF / CNPJ
+                </label>
+
+                <input
+                type="text"
+                name="cpf"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- RG -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    RG
+                </label>
+
+                <input
+                type="text"
+                name="rg"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- ORG EXP -->
+<div>
+
+    <label class="block text-sm font-semibold mb-2">
+        ORG.EXP
+    </label>
+
+    <input
+    type="text"
+    name="org_exp"
+    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- UF EXP -->
+<div>
+
+    <label class="block text-sm font-semibold mb-2">
+        UF Expedição
+    </label>
+
+    <input
+    type="text"
+    name="uf_exp"
+    maxlength="2"
+    class="uppercase w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- NASCIMENTO -->
+<div>
+
+    <label class="block text-sm font-semibold mb-2">
+        Data Nascimento
+    </label>
+
+    <input
+type="text"
+name="data_nascimento"
+id="dataNascimento"
+maxlength="10"
+placeholder="00/00/0000"
+class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- CNH -->
+<div>
+
+    <label class="block text-sm font-semibold mb-2">
+        Vencimento CNH
+    </label>
+
+    <input
+type="text"
+name="vencimento_cnh"
+id="vencimentoCnh"
+maxlength="10"
+placeholder="00/00/0000"
+class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- PGU -->
+<div>
+
+    <label class="block text-sm font-semibold mb-2">
+        PGU / Registro
+    </label>
+
+    <input
+    type="text"
+    name="pgu_registro"
+    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- PAI -->
+<div class="xl:col-span-2">
+
+    <label class="block text-sm font-semibold mb-2">
+        Nome do Pai
+    </label>
+
+    <input
+    type="text"
+    name="nome_pai"
+    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+<!-- MAE -->
+<div class="xl:col-span-2">
+
+    <label class="block text-sm font-semibold mb-2">
+        Nome da Mãe
+    </label>
+
+    <input
+    type="text"
+    name="nome_mae"
+    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+</div>
+
+            <!-- TELEFONE -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Telefone
+                </label>
+
+                <input
+                type="text"
+                name="telefone"
+                required
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- EMAIL -->
+            <div class="xl:col-span-2">
+
+                <label class="block text-sm font-semibold mb-2">
+                    Email
+                </label>
+
+                <input
+                type="email"
+                name="email"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- CEP -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    CEP
+                </label>
+
+                <input
+                type="text"
+                name="cep"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- ENDEREÇO -->
+            <div class="xl:col-span-2">
+
+                <label class="block text-sm font-semibold mb-2">
+                    Endereço
+                </label>
+
+                <input
+                type="text"
+                name="endereco"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- NUMERO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Número
+                </label>
+
+                <input
+                type="text"
+                name="numero"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- BAIRRO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Bairro
+                </label>
+
+                <input
+                type="text"
+                name="bairro"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- CIDADE -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Cidade
+                </label>
+
+                <input
+                type="text"
+                name="cidade"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+            <!-- ESTADO -->
+            <div>
+
+                <label class="block text-sm font-semibold mb-2">
+                    Estado
+                </label>
+
+                <input
+                type="text"
+                name="estado"
+                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50">
+
+            </div>
+
+        </div>
+
+        <!-- BOTÃO -->
+        <div class="flex justify-end mt-6">
+
+            <button
+            type="submit"
+            class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-7 py-3 rounded-xl shadow-lg hover:scale-105 transition-all font-semibold">
+
+                <i class="fas fa-save mr-2"></i>
+                Salvar Cliente
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- TABELA -->
+<div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+
+    <div class="p-6 border-b border-slate-100">
+
+        <h2 class="text-xl font-bold text-slate-800">
+            Clientes Cadastrados
+        </h2>
+
+    </div>
+
+    <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+            <thead class="bg-slate-50">
+
+                <tr>
+
+                    <th class="text-left px-6 py-4 text-sm font-semibold text-slate-600">
+                        Nome
+                    </th>
+
+                    <th class="text-left px-6 py-4 text-sm font-semibold text-slate-600">
+                        Telefone
+                    </th>
+
+                    <th class="text-left px-6 py-4 text-sm font-semibold text-slate-600">
+                        CPF/CNPJ
+                    </th>
+
+                    <th class="text-center px-6 py-4 text-sm font-semibold text-slate-600">
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for cliente in clientes_lista %}
+
+                <tr class="border-t border-slate-100 hover:bg-slate-50 transition-all">
+
+                    <td class="px-6 py-4 font-medium text-slate-700">
+                        {{ cliente.nome }}
+                    </td>
+
+                    <td class="px-6 py-4 text-slate-600">
+                        {{ cliente.telefone }}
+                    </td>
+
+                    <td class="px-6 py-4 text-slate-600">
+                        {{ cliente.cpf }}
+                    </td>
+
+                    <td class="px-6 py-4">
+
+                        <div class="flex items-center justify-center gap-3">
+
+                            <!-- EDITAR -->
+                            <a
+                            href="/editar_cliente/{{ cliente.id }}"
+                            class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl transition-all">
+
+                                <i class="fas fa-pen mr-1"></i>
+                                Editar
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+<script>
+
+function mascaraData(input) {
+
+    input.addEventListener('input', function(e) {
+
+        let valor = e.target.value.replace(/\D/g, '');
+
+        if (valor.length > 2) {
+            valor = valor.substring(0,2) + '/' + valor.substring(2);
+        }
+
+        if (valor.length > 5) {
+            valor = valor.substring(0,5) + '/' + valor.substring(5,9);
+        }
+
+        e.target.value = valor;
+
+    });
+
+}
+
+mascaraData(
+    document.getElementById('dataNascimento')
+);
+
+mascaraData(
+    document.getElementById('vencimentoCnh')
+);
+
+</script>
+
+
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

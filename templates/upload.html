@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Documentos</title>
+</head>
+<body>
+
+<h2>Upload do Processo {{ processo_id }}</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Tipo:</label>
+    <select name="tipo">
+        <option value="CNH">CNH</option>
+        <option value="CRV">CRV</option>
+        <option value="Vistoria">Vistoria</option>
+        <option value="Contrato">Contrato</option>
+    </select>
+
+    <br><br>
+
+    <input type="file" name="file" required>
+
+    <br><br>
+
+    <button type="submit">Enviar</button>
+
+</form>
+
+</body>
+</html>

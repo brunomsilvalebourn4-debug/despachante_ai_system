@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="mb-8 flex items-center justify-between">
+
+        <div>
+
+            <h1 class="text-4xl font-bold text-slate-800">
+                IA Assistente
+            </h1>
+
+            <p class="text-slate-500 mt-2 text-lg">
+                Atendimento inteligente integrado ao sistema do despachante.
+            </p>
+
+        </div>
+
+        <!-- STATUS -->
+        <div class="bg-white border border-slate-200 shadow-lg rounded-2xl px-6 py-4 flex items-center gap-4">
+
+            <div class="w-4 h-4 rounded-full bg-emerald-500 animate-pulse"></div>
+
+            <div>
+
+                <p class="text-sm text-slate-500">
+                    Status
+                </p>
+
+                <h3 class="font-bold text-slate-800">
+                    IA Online
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CONTAINER -->
+    <div class="bg-white rounded-[30px] shadow-2xl border border-slate-200 overflow-hidden">
+
+        <!-- TOPO -->
+        <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 p-8">
+
+            <div class="flex items-center gap-5">
+
+                <div class="w-20 h-20 rounded-3xl bg-white/20 backdrop-blur flex items-center justify-center text-white text-4xl shadow-xl">
+
+                    <i class="fas fa-robot"></i>
+
+                </div>
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-white">
+                        Assistente Virtual
+                    </h2>
+
+                    <p class="text-blue-100 mt-2 text-lg">
+                        Inteligência integrada ao banco de dados
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CHAT -->
+        <div class="bg-slate-50 p-8 min-h-[600px] flex flex-col justify-between">
+
+            <div class="space-y-6">
+
+                <!-- MENSAGEM IA -->
+                <div class="flex items-start gap-4">
+
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 flex items-center justify-center text-white text-2xl shadow-lg flex-shrink-0">
+
+                        <i class="fas fa-robot"></i>
+
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-3xl px-6 py-5 shadow-md max-w-3xl">
+
+                        <p class="text-slate-700 leading-8 text-[16px]">
+
+                            Olá 😊<br><br>
+
+                            Seja bem-vindo ao sistema inteligente da
+                            <strong>Nivaldo Despachante</strong>.<br><br>
+
+                            Posso ajudar com:
+                            <br><br>
+
+                            • consulta de processos<br>
+                            • transferência<br>
+                            • multas<br>
+                            • licenciamento<br>
+                            • documentação<br>
+                            • consulta de placas
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- RESPOSTA -->
+                {% if resposta %}
+
+                <div class="flex items-start gap-4">
+
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 flex items-center justify-center text-white text-2xl shadow-lg flex-shrink-0">
+
+                        <i class="fas fa-robot"></i>
+
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-3xl px-6 py-5 shadow-md max-w-4xl whitespace-pre-line">
+
+                        <p class="text-slate-700 leading-8 text-[16px]">
+                            {{ resposta }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- INPUT -->
+            <div class="mt-10">
+
+                <form method="POST">
+
+                    <div class="bg-white border border-slate-200 rounded-3xl p-4 shadow-lg">
+
+                        <div class="flex items-end gap-4">
+
+                            <!-- INPUT -->
+                            <div class="flex-1">
+
+                                <textarea
+                                name="pergunta"
+                                rows="3"
+                                placeholder="Digite sua pergunta... Ex: consultar placa ABC1D23"
+                                class="w-full bg-transparent px-4 py-3 text-slate-700 placeholder-slate-400 outline-none resize-none text-[16px]"></textarea>
+
+                            </div>
+
+                            <!-- BOTÃO -->
+                            <button
+                            type="submit"
+                            class="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all font-semibold flex items-center gap-3">
+
+                                <i class="fas fa-paper-plane"></i>
+
+                                Enviar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
